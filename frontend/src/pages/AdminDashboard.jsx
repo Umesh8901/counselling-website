@@ -12,7 +12,7 @@ export default function AdminDashboard() {
     const token = localStorage.getItem('adminToken');
     if (!token) { navigate('/admin-login'); return; }
 
-    axios.get('http://localhost:5000/api/student', { headers: { Authorization: `Bearer ${token}` } })
+    axios.get('https://counselling-backend-8hd0.onrender.com/api/students', { headers: { Authorization: `Bearer ${token}` } })
       .then(res => setStudents(res.data))
       .catch(() => { localStorage.clear(); navigate('/admin-login'); });
   }, [navigate]);
@@ -23,7 +23,7 @@ export default function AdminDashboard() {
     const token = localStorage.getItem('adminToken');
 
     try {
-      await axios.put(`http://localhost:5000/api/student/${id}`, { admissionStatus: nextStatus }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.put(`https://counselling-backend-8hd0.onrender.com/api/students/${id}`, { admissionStatus: nextStatus }, { headers: { Authorization: `Bearer ${token}` } });
       setStudents(students.map(s => s._id === id ? { ...s, admissionStatus: nextStatus } : s));
     } catch (err) {
       alert("Error executing data modification updates.");
